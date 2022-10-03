@@ -3,7 +3,10 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Amazing.iml" filepath="$PROJECT_DIR$/Amazing.iml" />
+      <module fileurl="file://$PROJECT_DIR$/product/product.iml" filepath="$PROJECT_DIR$/product/product.iml" />
+      <module fileurl="file://$PROJECT_DIR$/server_eureka/server_eureka.iml" filepath="$PROJECT_DIR$/server_eureka/server_eureka.iml" />
       <module fileurl="file://$PROJECT_DIR$/users/users.iml" filepath="$PROJECT_DIR$/users/users.iml" />
+      <module fileurl="file://$PROJECT_DIR$/wishlists/wishlists.iml" filepath="$PROJECT_DIR$/wishlists/wishlists.iml" />
     </modules>
   </component>
 </project>

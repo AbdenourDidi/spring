@@ -1,0 +1,21 @@
+### Create one
+POST http://localhost:8080/products
+Content-Type: application/json
+
+{
+  "id": 2,
+  "name": "processeur",
+  "category": "informatique",
+  "price": 300
+}
+
+### Read all
+GET http://localhost:8080/products
+
+### Read one
+GET http://localhost:8080/products/2
+
+### Delete one
+DELETE http://localhost:8080/products/1
+
+
