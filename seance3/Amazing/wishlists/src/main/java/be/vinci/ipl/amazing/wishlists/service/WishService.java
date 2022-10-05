@@ -19,15 +19,14 @@ public class WishService {
     }
 
     /**
-     * Creates a wish in repository
-     * @param noIdWish Wish to create
-     * @throws WishExists409Exception when wish already exists
+     * Updtaes a wish in repository
+     * @param noIdWish new values of the wish
+     * @throws WishNotFound404Exception when the wish couldn't be found
      */
-    public void createOne(NoIdWish noIdWish) throws WishExists409Exception {
-        if (repository.existsByPseudoAndProductId(noIdWish.getPseudo(), noIdWish.getProductId())) {
-            throw new WishExists409Exception();
-        }
-        repository.save(noIdWish.toWish());
+    public void updateOne(NoIdWish noIdWish) throws WishExists409Exception {
+        Wish oldWish = repository.findByPseudoAndProductId(noIdWish.getPseudo(), noIdWish.getProductId())
+                .orElseThrow(WishNotFound404Exception::new);
+        repository.save(noIdWish.toWish(oldWish.getId()));
     }
 
     /**
@@ -52,9 +51,5 @@ public class WishService {
                 .map(Wish::removeId)
                 .toList();
     }
-
-
-
-
 
 }
