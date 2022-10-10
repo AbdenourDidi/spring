@@ -1,0 +1,113 @@
+openapi: 3.0.3
+info:
+  title: Amazing authentication service
+  description: Amazing authentication service
+  version: 1.0.0
+servers:
+  - url: 'http://localhost:9004'
+    description: Development server
+paths:
+
+  /authentication/{pseudo}:
+    parameters:
+      - name: pseudo
+        in: path
+        description: Pseudo of the user credentials
+        schema:
+          type: string
+        example: SebStreb
+
+    post:
+      summary: Create user credentials
+      requestBody:
+        description: Credentials to create
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/credentials'
+      responses:
+        400:
+          description: Incorrect credentials
+        409:
+          description: Credentials already exists
+        201:
+          description: Credentials created
+    put:
+      summary: Update user credentials
+      requestBody:
+        description: New values of the credentials
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/credentials'
+      responses:
+        400:
+          description: Incorrect credentials
+        404:
+          description: Credentials not found
+        200:
+          description: Credentials updated
+    delete:
+      summary: Delete user credentials
+      responses:
+        404:
+          description: Credentials not found
+        200:
+          description: Credentials deleted
+
+  /authentication/connect:
+    post:
+      summary: Connect user credentials
+      requestBody:
+        description: Credentials to connect
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/credentials'
+      responses:
+        400:
+          description: Incorrect credentials
+        401:
+          description: Wrong pseudo or password
+        200:
+          description: Connected, returned JWT token
+          content:
+            'text/plain':
+              schema:
+                type: string
+                example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9eyJzdwIiOiIxMiMONTY30DkwIiwibmFtZSI6IkpvaG4gRG91IiwiaXNTb2NpYWwiOnRydWV9.4pcPyMD0901PSyXnrXCjTwXyr4BsezdI1AVTmud2fU4
+
+  /authentication/verify:
+    post:
+      summary: Verify JWT token
+      requestBody:
+        description: JWT token to verify
+        content:
+          'text/plain':
+            schema:
+              type: string
+              example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9eyJzdwIiOiIxMiMONTY30DkwIiwibmFtZSI6IkpvaG4gRG91IiwiaXNTb2NpYWwiOnRydWV9.4pcPyMD0901PSyXnrXCjTwXyr4BsezdI1AVTmud2fU4
+      responses:
+        401:
+          description: Couldn't verify JWT token
+        200:
+          description: Token correct, returned user pseudo in token
+          content:
+            'text/plain':
+              schema:
+                type: string
+                example: SebStreb
+
+components:
+  schemas:
+    credentials:
+      type: object
+      properties:
+        pseudo:
+          type: string
+        password:
+          type: string
+      example:
+        pseudo: SebStreb
+        password: password123
+  

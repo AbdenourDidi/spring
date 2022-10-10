@@ -1,0 +1,38 @@
+### Create credentials
+POST http://localhost:9004/authentication/SebStreb
+Content-Type: application/json
+
+{
+  "pseudo": "SebStreb",
+  "password": "password123"
+}
+
+### Update credentials
+PUT http://localhost:9004/authentication/SebStreb
+Content-Type: application/json
+
+{
+  "pseudo": "SebStreb",
+  "password": "@wayb3tt3rpassword"
+}
+
+### Delete credentials
+DELETE http://localhost:9004/authentication/SebStreb
+
+
+### Connect user credentials
+POST http://localhost:9004/authentication/connect
+Content-Type: application/json
+
+{
+  "pseudo": "SebStreb",
+  "password": "password123"
+}
+
+> {% client.global.set("token", response.body) %}
+
+### Verify token
+POST http://localhost:9004/authentication/verify
+Content-Type: text/plain
+
+{{token}}
